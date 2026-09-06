@@ -1,12 +1,22 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import interfaces.Descargable;
 
 public class LibroDigital
-        extends MaterialDigital{
+        extends MaterialDigital implements Descargable{
     private String autor;
     private String tamanioArchivo;
     private static int cantidad;
     private static List<LibroDigital> listaLibroDigital =new ArrayList<>();
+
+    public LibroDigital(){
+        super();
+        cantidad++;
+        this.incremento();
+        enlistar(this);
+    }
 
     public LibroDigital(int codigo, String titulo, int anioPublicacion, String editorial,String idioma,
                         int cantidadPaginas,String autor,String tamanioArchivo, String formato){
@@ -43,15 +53,84 @@ public class LibroDigital
     }
 
     //metodos
-    public void enlistar(LibroDigital libroDigital){
-        listaLibroDigital.add(libroDigital);
+    public void enlistar(LibroDigital libroDigital) {
+        listaLibroDigital.add(libroDigital); 
     }
 
-
-    public static void mostrarLista () {
+    public static void mostrarLista() {
         for (LibroDigital libroDigital : listaLibroDigital) {
             System.out.println(libroDigital.getTitulo());
         }
+    }
 
+    public static LibroDigital existencia(String target) {
+        for(MaterialBibliografico material : getListaMaterialBibliografico()){
+            if (target == material.getTitulo()){
+                for(LibroDigital libro : listaLibroDigital) {
+                    if (target == libro.getTitulo()){
+                        return  libro;
+                    }
+                }
+            }else{
+                System.out.println("Material no registrado en biblioteca.");
+                return null;
+            }
+        }
+        return null;
+    }
+
+    //Métodos sobreescritos
+    @Override 
+    public void descargar(){
+        this.download();
+    }
+
+    @Override 
+    public void registrar(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Código: ");
+        int codigo = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Título: ");
+        String titulo = sc.nextLine();
+
+        System.out.print("Año de Publicacion: ");
+        int anioPublicacion = sc.nextInt();
+        sc.nextLine();
+
+
+        System.out.print("Editorial: ");
+        String editorial = sc.nextLine();
+
+        System.out.print("Idioma: ");
+        String idioma = sc.nextLine();
+
+        System.out.print("Cantidad de Páginas: ");
+        int cantidadPaginas = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Autor: ");
+        String autor = sc.nextLine();
+
+
+        System.out.print("Formato: ");
+        String formato = sc.nextLine();
+
+        System.out.print("Tamaño: ");
+        String tamanio = sc.nextLine();
+
+   
+
+        this.setCodigo(codigo);
+        this.setTitulo(titulo);
+        this.setAnioPublicacion(anioPublicacion);
+        this.setEditorial(editorial);
+        this.setIdioma(idioma);
+        this.setCantidadPaginas(cantidadPaginas);
+        this.setAutor(autor);
+        this.setFormato(formato);
+        this.setTamanioArchivo(tamanio);
     }
 }

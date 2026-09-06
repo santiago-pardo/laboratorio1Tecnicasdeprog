@@ -11,9 +11,9 @@ public abstract class MaterialBibliografico {
     private static int contadorgeneral= 0;
     private static List<MaterialBibliografico> listaMaterialBibliografico =new ArrayList<>();
 
+    public MaterialBibliografico(){
 
-
-
+    }
 
     public MaterialBibliografico(int codigo, String titulo, int anioPublicacion,
                                  String editorial,String idioma, int cantidadPaginas){
@@ -91,6 +91,10 @@ public abstract class MaterialBibliografico {
         return idioma;
     }
 
+    public static List<MaterialBibliografico> getListaMaterialBibliografico() {
+        return listaMaterialBibliografico;
+    }
+
 
     //metodos propios
     public void registrarMaterial(){
@@ -101,7 +105,6 @@ public abstract class MaterialBibliografico {
         listaMaterialBibliografico.add(material);
     }
 
-
     public static void mostrarLista () {
         for (MaterialBibliografico material : listaMaterialBibliografico) {
             System.out.println(material.getTitulo());
@@ -109,6 +112,14 @@ public abstract class MaterialBibliografico {
 
     }
 
+    public static void mostarPorCategoria(){
+        System.out.println("\n<< LIBROS FÍSICOS >>");
+        LibroFisico.mostrarLista();
+        System.out.println("\n<< REVISTAS >>");
+        Revista.mostrarLista();
+        System.out.println("\n << LIBROS DIGITALES >>");
+        LibroDigital.mostrarLista();
+    }
 
 
 }

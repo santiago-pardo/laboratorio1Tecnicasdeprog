@@ -3,14 +3,17 @@ import java.util.List;
 import interfaces.Prestable;
 import java.util.Scanner;
 
-public class LibroFisico
-        extends MaterialFisico
-        implements Prestable {
+public class LibroFisico extends MaterialFisico implements Prestable {
     private String autor;
     private static int cantidad;
     private static List<LibroFisico> listaLibroFisico =new ArrayList<>();
 
-
+    public LibroFisico(){
+        super();
+        cantidad++;
+        this.incremento();
+        enlistar(this);
+    }
 
     public LibroFisico(int codigo, String titulo, int anioPublicacion, String editorial,String idioma, int cantidadPaginas,
                        int cantidadDeEjemplares, String autor){
@@ -19,10 +22,6 @@ public class LibroFisico
         cantidad++;
         this.incremento();
         enlistar(this);
-
-
-
-
     }
 
     /*implementar otra forma de crear un objeto si algun dato opcional no esta disponible
@@ -33,109 +32,115 @@ public class LibroFisico
         cantidad++;
         this.incremento();
         enlistar(this);
-
-
-
-
     }*/
 
+    //getters
     public static int getCantidad() {
         return cantidad;
     }
 
-    //getters
-
     public String getAutor() {
         return autor;
     }
+
    //setters
     public void setAutor(String autor) {
         this.autor = autor;
     }
 
-    //interface
+    //métodos sobreescritos de la clase padre
+    @Override 
+    public void registrar() {
+        
+        Scanner sc = new Scanner(System.in);
 
-
-
-
-    //metodos propios
-
-
-
-    public  static LibroFisico registrar(Scanner sc) {
-
-
-        System.out.print("codigo: ");
+        System.out.print("Código: ");
         int codigo = sc.nextInt();
         sc.nextLine();
 
         System.out.print("Título: ");
         String titulo = sc.nextLine();
 
-        System.out.print("año de publicacion ");
+        System.out.print("Año de Publicacion: ");
         int anioPublicacion = sc.nextInt();
         sc.nextLine();
 
 
-        System.out.print("editorial: ");
+        System.out.print("Editorial: ");
         String editorial = sc.nextLine();
 
-        System.out.print("idioma: ");
+        System.out.print("Idioma: ");
         String idioma = sc.nextLine();
 
-        System.out.print("cantidad de paginas ");
+        System.out.print("Cantidad de Páginas: ");
         int cantidadPaginas = sc.nextInt();
-
-
-        System.out.print("cantidad de ejemplares: ");
-        int cantidadDeEjemplares = sc.nextInt();
-        int cantidadDisponible = cantidadDeEjemplares;
         sc.nextLine();
 
-        System.out.print("autor: ");
+
+        System.out.print("Cantidad de Ejemplares: ");
+        int cantidadDeEjemplares = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Autor: ");
         String autor = sc.nextLine();
 
 
-        return new LibroFisico(codigo, titulo, anioPublicacion,editorial,idioma,cantidadPaginas,cantidadDeEjemplares,autor);
+        this.setCodigo(codigo);
+        this.setTitulo(titulo);
+        this.setAnioPublicacion(anioPublicacion);
+        this.setEditorial(editorial);
+        this.setIdioma(idioma);
+        this.setCantidadPaginas(cantidadPaginas);
+        this.setCantidadDeEjemplares(cantidadDeEjemplares);
+        this.setCantidadDisponible(cantidadDeEjemplares);
+        this.setAutor(autor);
     }
-
-
-
-    //sobreescritura
-    public void enlistar(LibroFisico libroFisico){
+ 
+    public void enlistar(LibroFisico libroFisico) {
         listaLibroFisico.add(libroFisico);
     }
-
-
 
     public static void mostrarLista () {
         for (LibroFisico libroFisico : listaLibroFisico) {
             System.out.println(libroFisico.getTitulo());
         }
-
     }
 
+    public static LibroFisico existencia(String target) {
+        for(MaterialBibliografico material : getListaMaterialBibliografico()){
+            if (target == material.getTitulo()){
+                for(LibroFisico libro : listaLibroFisico) {
+                    if (target == libro.getTitulo()){
+                        return  libro;
+                    }
+                }
+            }else{
+                System.out.println("Material no registrado en biblioteca.");
+                return null;
+            }
+        }
+        return null;
+    }
 
-    public  void prestar(){
+    //Implementación de Interfaz Prestable
+    @Override 
+    public  void prestar() {
         if (getCantidadDisponible()> 0) {
             setCantidadDisponible(getCantidadDisponible()- 1);
-            System.out.println("un ejemplar de"+ getTitulo() +" ha sido prestado");
-
+            System.out.println("Un ejemplar de '"+ getTitulo() +"' ha sido prestado.");
+        }else{
+            System.out.println("No hay ejemplares disponibles de '"+ getTitulo() +"' en este momento.");
         }
-
-        System.out.println("quedan "+ getCantidadDisponible() +" ejemplares disponibles");
-
     }
 
-
+    @Override 
     public  void devolver(){
         if (getCantidadDisponible()<=getCantidadDeEjemplares()) {
-            setCantidadDisponible(getCantidadDisponible()- 1);
-            System.out.println("un ejemplar de"+ getTitulo() +" ha sido devuelto");
-            System.out.println("quedan "+ getCantidadDisponible() +" ejemplares disponibles");
+            setCantidadDisponible(getCantidadDisponible() + 1);
+            System.out.println("El ejemplar de '"+ getTitulo() +"' ha sido devuelto.");
+            System.out.println("Quedan "+ getCantidadDisponible() +" ejemplares disponibles.");
         } else{
-            System.out.println("no se puede devolver, ya hay"+ getCantidadDisponible() +" ejemplares disponibles, todos estan en biblioteca");
-
+            System.out.println("Devolución no aceptada, todos los ejemplares que dispone la biblioteca de '"+ getTitulo() +"' se encuentran en completos.");
         }
 
     }

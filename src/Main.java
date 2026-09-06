@@ -8,7 +8,14 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        /*
+        MaterialBibliografico libro = new LibroFisico(78, "NANA", 2017, "Castelle", "Español", 718, 2, "George Sphintons");
+        LibroFisico material = LibroFisico.existencia("NANA");
+        if (material != null) {
+            System.out.println("Está y tengo el nombre del autor:" + material.getAutor());
+        }else{
+            System.out.println("No está");
+        }*/
 
         //menu
         Scanner teclado = new Scanner(System.in);
@@ -27,32 +34,39 @@ public class Main {
             System.out.println("8. Mostrar estadisticas");
             System.out.println("0. Salir");
 
-
             opcion = teclado.nextInt();
 
             switch (opcion) {
 
                 case 1:
-                    System.out.println("ingrese los datos: ");
-
-                    LibroFisico.registrar(sc);
+                    System.out.println("Ingrese los datos: ");
+                    MaterialFisico libro = new LibroFisico();
+                    libro.registrar();
                     //LibroFisico libro = registrar(sc);
                     //listaLibroFisico.add(registrar(sc));
-                    System.out.println("libro registrado con exito");
-
+                    System.out.println("Libro agregado a la colección bibliográfica.");
 
                     break;
 
                 case 2:
-                    System.out.println("registrando revista...");
+                    System.out.println("Ingrese los datos: ");
+                    MaterialFisico revista = new Revista();
+                    revista.registrar();
+                    System.out.println("Revista agregado a la colección bibliográfica.");
+
                     break;
 
                 case 3:
-                    System.out.println("registrando libro digital");
+                    System.out.println("Ingrese los Datos: ");
+                    MaterialDigital libroD = new LibroDigital();
+                    libroD.registrar();
+                    System.out.println("Libro Digital agregado a la colección bibliográfica.");
+                    
                     break;
 
                 case 4:
-                    System.out.println("mostrando materiales");
+                    System.out.println("Materiales bibliográficos de la biblioteca.");
+                    MaterialBibliografico.mostarPorCategoria();
                     break;
 
                 case 5:
@@ -81,6 +95,7 @@ public class Main {
 
         } while (opcion != 0);
 
+        
         teclado.close();
 
 
