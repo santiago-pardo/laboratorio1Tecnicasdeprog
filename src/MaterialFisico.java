@@ -16,6 +16,12 @@ public abstract class MaterialFisico extends MaterialBibliografico{
         this.cantidadDisponible =cantidadDeEjemplares;
     }
 
+    public interface Prestable{
+        void prestar();
+        void devolver();
+
+    }
+
     //getters
 
     public int getCantidadDeEjemplares() {
@@ -26,10 +32,19 @@ public abstract class MaterialFisico extends MaterialBibliografico{
         return cantidadDisponible;
     }
 
-
+    //setters
     public void setCantidadDeEjemplares(int cantidadDeEjemplares) {
         this.cantidadDeEjemplares = cantidadDeEjemplares;
     }
+
+    public void setCantidadDisponible(int cantidadDisponible){
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
+    //metodos propios
+
+
+
 
 
 

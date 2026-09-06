@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class LibroDigital extends MaterialDigital{
+public class LibroDigital
+        extends MaterialDigital{
     private String autor;
     private String tamanioArchivo;
     private static int cantidad;
@@ -14,6 +15,7 @@ public class LibroDigital extends MaterialDigital{
         this.tamanioArchivo=tamanioArchivo;
         cantidad++;
         this.incremento();
+        enlistar(this);
 
     }
     public static int getCantidad() {
@@ -41,7 +43,12 @@ public class LibroDigital extends MaterialDigital{
     }
 
     //metodos
-    public void mostrarLista () {
+    public void enlistar(LibroDigital libroDigital){
+        listaLibroDigital.add(libroDigital);
+    }
+
+
+    public static void mostrarLista () {
         for (LibroDigital libroDigital : listaLibroDigital) {
             System.out.println(libroDigital.getTitulo());
         }

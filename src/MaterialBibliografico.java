@@ -9,6 +9,8 @@ public abstract class MaterialBibliografico {
     private String idioma;
     private int cantidadPaginas;
     private static int contadorgeneral= 0;
+    private static List<MaterialBibliografico> listaMaterialBibliografico =new ArrayList<>();
+
 
 
 
@@ -21,6 +23,8 @@ public abstract class MaterialBibliografico {
         this.editorial=editorial;
         this.idioma= idioma;
         this.cantidadPaginas=cantidadPaginas;
+        enlistar(this);
+        contadorgeneral++;
 
     }
 
@@ -36,6 +40,8 @@ public abstract class MaterialBibliografico {
     public void incremento(){
         contadorgeneral++;
     }
+
+
 
 
     //setters
@@ -87,5 +93,22 @@ public abstract class MaterialBibliografico {
 
 
     //metodos propios
+    public void registrarMaterial(){
+        //crear un metodo registrar material y sobreecribirlo() o especializarlo para que segun lo que reciba sea lo que registre
+    }
+
+    public void enlistar(MaterialBibliografico material){
+        listaMaterialBibliografico.add(material);
+    }
+
+
+    public static void mostrarLista () {
+        for (MaterialBibliografico material : listaMaterialBibliografico) {
+            System.out.println(material.getTitulo());
+        }
+
+    }
+
+
 
 }

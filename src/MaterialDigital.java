@@ -22,4 +22,9 @@ public abstract class MaterialDigital extends MaterialBibliografico{
     public void setFormato(String formato) {
         this.formato = formato;
     }
+
+    //metodos propios
+    public void descargar(){
+        System.out.println("material descargado");
+    }
 }
