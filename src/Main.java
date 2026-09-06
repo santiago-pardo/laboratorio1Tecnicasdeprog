@@ -16,7 +16,7 @@ public class Main {
         }else{
             System.out.println("No está");
         }*/
-
+        System.out.println("Borrame cuando me veas");
         //menu
         Scanner teclado = new Scanner(System.in);
 
