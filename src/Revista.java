@@ -13,7 +13,6 @@ public class Revista
     public Revista(){
         super();
         cantidad++;
-        this.incremento();
         enlistar(this);
     }
 
@@ -23,7 +22,6 @@ public class Revista
                 cantidadDeEjemplares);
         this.numeroEdicion=numeroEdicion;
         cantidad++;
-        this.incremento();
         enlistar(this);
     }
 
@@ -53,19 +51,26 @@ public class Revista
         }
     }
 
+    
+    public void mostrarInformacion(){
+        System.out.println("código: "+ this.getCodigo()+
+                            "\ntítulo: " + this.getTitulo()+
+                            "\nnúmero de edición: "+ this.getNumeroEdicion()+
+                            "\naño de publicación: "+ this.getAnioPublicacion()+
+                            "\neditorial: "+ this.getEditorial()+
+                            "\nidioma: "+ this.getIdioma()+
+                            "\ncantidad de páginas: "+ this.getCantidadPaginas()+
+                            "\ncantidad de ejemplares: "+ this.getCantidadDeEjemplares()+
+                            "\ncantidad disponible: "+ this.getCantidadDisponible());
+    }
+
     public static Revista existencia(String target) {
-        for(MaterialBibliografico material : getListaMaterialBibliografico()){
-            if (target == material.getTitulo()){
-                for(Revista revista : listaRevista) {
-                    if (target == revista.getTitulo()){
-                        return  revista;
-                    }
-                }
-            }else{
-                System.out.println("Material no registrado en biblioteca.");
-                return null;
+        for(Revista revista : listaRevista){
+            if (target.equalsIgnoreCase(revista.getTitulo())){
+                return  revista;
             }
         }
+        System.out.println("Material no registrado en biblioteca.");
         return null;
     }
 
@@ -130,7 +135,7 @@ public class Revista
 
     @Override 
     public  void devolver(){
-        if (getCantidadDisponible()<=getCantidadDeEjemplares()) {
+        if (getCantidadDisponible()<getCantidadDeEjemplares()) {
             setCantidadDisponible(getCantidadDisponible() + 1);
             System.out.println("El ejemplar de '"+ getTitulo() +"' ha sido devuelto.");
             System.out.println("Quedan "+ getCantidadDisponible() +" ejemplares disponibles.");

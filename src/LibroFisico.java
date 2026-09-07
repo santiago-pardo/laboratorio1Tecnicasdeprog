@@ -11,7 +11,6 @@ public class LibroFisico extends MaterialFisico implements Prestable {
     public LibroFisico(){
         super();
         cantidad++;
-        this.incremento();
         enlistar(this);
     }
 
@@ -20,7 +19,6 @@ public class LibroFisico extends MaterialFisico implements Prestable {
         super(codigo,titulo,anioPublicacion, editorial,idioma, cantidadPaginas, cantidadDeEjemplares);
         this.autor=autor;
         cantidad++;
-        this.incremento();
         enlistar(this);
     }
 
@@ -106,19 +104,25 @@ public class LibroFisico extends MaterialFisico implements Prestable {
         }
     }
 
+    public void mostrarInformacion(){
+        System.out.println("\ncódigo: "+ this.getCodigo()+
+                            "\ntítulo: " + this.getTitulo()+
+                            "\nautor: "+ this.getAutor()+
+                            "\naño de publicación: "+ this.getAnioPublicacion()+
+                            "\neditorial: "+ this.getEditorial()+
+                            "\nidioma: "+ this.getIdioma()+
+                            "\ncantidad de páginas: "+ this.getCantidadPaginas()+
+                            "\ncantidad de ejemplares: "+ this.getCantidadDeEjemplares()+
+                            "\ncantidad disponible: "+ this.getCantidadDisponible());
+    }
+
     public static LibroFisico existencia(String target) {
-        for(MaterialBibliografico material : getListaMaterialBibliografico()){
-            if (target == material.getTitulo()){
-                for(LibroFisico libro : listaLibroFisico) {
-                    if (target == libro.getTitulo()){
-                        return  libro;
-                    }
-                }
-            }else{
-                System.out.println("Material no registrado en biblioteca.");
-                return null;
+        for(LibroFisico material : listaLibroFisico){
+            if (target.equalsIgnoreCase( material.getTitulo())){
+                return  material;
             }
         }
+        System.out.println("Material no registrado en biblioteca.");
         return null;
     }
 
@@ -135,7 +139,7 @@ public class LibroFisico extends MaterialFisico implements Prestable {
 
     @Override 
     public  void devolver(){
-        if (getCantidadDisponible()<=getCantidadDeEjemplares()) {
+        if (getCantidadDisponible()<getCantidadDeEjemplares()) {
             setCantidadDisponible(getCantidadDisponible() + 1);
             System.out.println("El ejemplar de '"+ getTitulo() +"' ha sido devuelto.");
             System.out.println("Quedan "+ getCantidadDisponible() +" ejemplares disponibles.");

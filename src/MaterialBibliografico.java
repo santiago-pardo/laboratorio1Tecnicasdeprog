@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class MaterialBibliografico {
     private int codigo;
@@ -12,7 +13,8 @@ public abstract class MaterialBibliografico {
     private static List<MaterialBibliografico> listaMaterialBibliografico =new ArrayList<>();
 
     public MaterialBibliografico(){
-
+        enlistar(this);
+        contadorgeneral++;
     }
 
     public MaterialBibliografico(int codigo, String titulo, int anioPublicacion,
@@ -25,7 +27,6 @@ public abstract class MaterialBibliografico {
         this.cantidadPaginas=cantidadPaginas;
         enlistar(this);
         contadorgeneral++;
-
     }
 
     public MaterialBibliografico(String titulo, int anioPublicacion){
@@ -79,6 +80,10 @@ public abstract class MaterialBibliografico {
         return titulo;
     }
 
+    public int getCantidadPaginas() {
+        return  cantidadPaginas;
+    }
+
     public int getAnioPublicacion() {
         return anioPublicacion;
     }
@@ -121,5 +126,139 @@ public abstract class MaterialBibliografico {
         LibroDigital.mostrarLista();
     }
 
+    public static void busqueda(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n    1. Libro Fisico\n    2. Revista\n    3. Libro Digital\n    0. Regresar al menú principal");
+        int opc = sc.nextInt();
+        sc.nextLine();
+
+        switch(opc){
+            case 1:
+                System.out.println("Ingrese el título del libro: ");
+                String titulo = sc.nextLine();
+                LibroFisico libro = LibroFisico.existencia(titulo);
+
+                if (libro != null){
+                    libro.mostrarInformacion(); 
+                }
+
+                break;
+
+            case 2:
+                System.out.println("Ingrese el título de la revista: ");
+                String tituloRevista = sc.nextLine();
+                Revista revista = Revista.existencia(tituloRevista);
+
+                if (revista != null){
+                    revista.mostrarInformacion();
+                }
+
+                break;
+
+            case 3:
+                System.out.println("Ingrese el título del libro: ");
+                String tituloLD = sc.nextLine();
+                LibroDigital libroD = LibroDigital.existencia(tituloLD);
+
+                if (libroD != null){
+                    libroD.mostrarInformacion();
+                }
+            
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opción no válida.");
+        }
+    }
+
+    public static void prestamo(){
+       Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n    1. Libro Fisico\n    2. Revista\n    0. Regresar al menú principal");
+        int opc = sc.nextInt();
+        sc.nextLine(); 
+
+        switch(opc){
+            case 1:
+                System.out.println("Ingrese el título del libro: ");
+                String titulo = sc.nextLine();
+                LibroFisico libro = LibroFisico.existencia(titulo);
+
+                if (libro != null){
+                    libro.prestar();
+                }
+                break;
+
+            case 2:
+                System.out.println("Ingrese el título de la revista: ");
+                String tituloRevista = sc.nextLine();
+                Revista revista = Revista.existencia(tituloRevista);
+
+                if (revista != null){
+                    revista.prestar();
+                }
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opció no válida.");
+        }
+
+    }
+
+    public static void devolucion(){
+       Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n    1. Libro Fisico\n    2. Revista\n    0. Regresar al menú principal");
+        int opc = sc.nextInt();
+        sc.nextLine(); 
+
+        switch(opc){
+            case 1:
+                System.out.println("Ingrese el título del libro: ");
+                String titulo = sc.nextLine();
+                LibroFisico libro = LibroFisico.existencia(titulo);
+
+                if (libro != null){
+                    libro.devolver();
+                }
+                break;
+
+            case 2:
+                System.out.println("Ingrese el título de la revista: ");
+                String tituloRevista = sc.nextLine();
+                Revista revista = Revista.existencia(tituloRevista);
+
+                if (revista != null){
+                    revista.devolver();
+                }
+                break;
+
+            case 0:
+                break;
+
+            default:
+                System.out.println("Opció no válida.");
+        }
+
+    }
+
+    public static void descarga(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Ingrese el título del libro: ");
+        String titulo = sc.nextLine();
+        LibroDigital libro = LibroDigital.existencia(titulo);
+
+        if (libro != null){
+            libro.descargar();
+        }
+    }
 
 }

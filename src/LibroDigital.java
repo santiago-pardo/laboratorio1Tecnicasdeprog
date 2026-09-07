@@ -14,7 +14,6 @@ public class LibroDigital
     public LibroDigital(){
         super();
         cantidad++;
-        this.incremento();
         enlistar(this);
     }
 
@@ -24,7 +23,6 @@ public class LibroDigital
         this.autor=autor;
         this.tamanioArchivo=tamanioArchivo;
         cantidad++;
-        this.incremento();
         enlistar(this);
 
     }
@@ -63,19 +61,25 @@ public class LibroDigital
         }
     }
 
+    public void mostrarInformacion(){
+        System.out.println("\ncódigo: "+ this.getCodigo()+
+                            "\ntítulo: " + this.getTitulo()+
+                            "\nautor: "+ this.getAutor()+
+                            "\naño de publicación: "+ this.getAnioPublicacion()+
+                            "\neditorial: "+ this.getEditorial()+
+                            "\nidioma: "+ this.getIdioma()+
+                            "\ncantidad de páginas: "+ this.getCantidadPaginas()+
+                            "\nformato: "+ this.getFormato()+
+                            "\ntamaño archivo: "+ this.getTamanioArchivo());
+    }
+
     public static LibroDigital existencia(String target) {
-        for(MaterialBibliografico material : getListaMaterialBibliografico()){
-            if (target == material.getTitulo()){
-                for(LibroDigital libro : listaLibroDigital) {
-                    if (target == libro.getTitulo()){
-                        return  libro;
-                    }
-                }
-            }else{
-                System.out.println("Material no registrado en biblioteca.");
-                return null;
+        for(LibroDigital libroD : listaLibroDigital){
+            if (target.equalsIgnoreCase( libroD.getTitulo())){
+                    return  libroD;
             }
         }
+        System.out.println("Material no registrado en biblioteca.");
         return null;
     }
 
